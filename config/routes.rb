@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :orders, only: [:create] do
     patch :lock, on: :member
   end
+  get '/sku-summary/:sku', to: 'sku_stats#summary'
 end

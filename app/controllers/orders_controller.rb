@@ -10,10 +10,19 @@ class OrdersController < ApplicationController
       end
     else
       order = Order.create(external_id: order_params[:external_id], placed_at: order_params[:placed_at])
+    	order.line_items.create!(line_items_params.map { |li| li.merge(original: true) })
     end
 
     RecalculateSkuStatsJob.perform_later(order.line_items.pluck(:sku).uniq)
     render json: { order: order }, status: :ok
+  end
+
+  def lock
+    order = Order.find(params[:id])
+    order.update(locked_at: Time.current)
+
+    RecalculateSkuStatsJob.perform_later(order.line_items.pluck(:sku).uniq)
+    render json: { locked: true, message: "Your Order is Successfully Locked" }, status: :ok
   end
 
   private
@@ -23,6 +32,6 @@ class OrdersController < ApplicationController
   end
 
   def line_items_params
-    params[:line_items] || []
-  end
+	  params[:line_items]&.map { |li| li.permit(:sku, :quantity) } || []
+	end
 end

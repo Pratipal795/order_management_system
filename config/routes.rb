@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :orders, only: [:create]
+  resources :orders, only: [:create] do
+    patch :lock, on: :member
+  end
 end

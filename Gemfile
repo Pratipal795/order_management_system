@@ -40,4 +40,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
+gem 'sidekiq'
+gem 'redis'    # Sidekiq dependency
+gem 'redis-client', '~> 0.24.0'
+
 

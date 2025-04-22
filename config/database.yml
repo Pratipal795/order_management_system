@@ -22,13 +22,18 @@ default: &default
 
 development:
   <<: *default
+  adapter: postgresql
   database: order_management_system_development
+  username: postgres
+  password: password
+  host: localhost
+  port: 5432
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: order_management_system
+  #username: order_management_sys
 
   # The password associated with the PostgreSQL role (username).
   #password:
@@ -54,10 +59,15 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
+
 test:
   <<: *default
+  adapter: postgresql
   database: order_management_system_test
-
+  username: postgres
+  password: password
+  host: localhost
+  port: 5432
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -81,5 +91,14 @@ test:
 production:
   <<: *default
   database: order_management_system_production
-  username: order_management_system
-  password: <%= ENV["ORDER_MANAGEMENT_SYSTEM_DATABASE_PASSWORD"] %>
+  username: order_management_sys
+  password: <%= ENV["ORDER_MANAGEMENT_SYS_DATABASE_PASSWORD"] %>
+
+# production:
+#   <<: *default
+#   adapter: postgresql
+#   database: <%= ENV['TEMPLATEAPP_DATABASE'] %>
+#   username: <%= ENV['TEMPLATEAPP_DATABASE_USER'] %>
+#   password: <%= ENV['TEMPLATEAPP_DATABASE_PASSWORD'] %>
+#   host: <%= ENV['TEMPLATE_DATABASE_HOSTNAME'] %>
+#   port: 5432

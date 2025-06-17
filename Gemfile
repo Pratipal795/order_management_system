@@ -44,6 +44,6 @@ end
 
 gem 'sidekiq'
 gem 'redis'    # Sidekiq dependency
-gem 'redis-client', '~> 0.24.0'
+gem 'redis-client', '~> 0.25.0'
 
 
